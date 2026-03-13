@@ -18,18 +18,6 @@
 
 <div>
 <p align="center">
-  <a href="https://zerotomastery.io/?utm_source=github&utm_medium=sponsor&utm_campaign=reactjs-interview-questions">
-    <img src="./images/collab/ztm.gif" alt="ZTM Logo" width="100%">
-  </a>
-</p>
-</div>
-
- > I recommend this [React course](https://zerotomastery.io/courses/learn-react/?utm_source=github&utm_medium=sponsor&utm_campaign=reactjs-interview-questions) to become top 10% at React and [this coding interview bootcamp](https://zerotomastery.io/courses/learn-data-structures-and-algorithms/?utm_source=github&utm_medium=sponsor&utm_campaign=reactjs-interview-questions) to ace your coding interview and actually get hired.
-
----
-
-<div>
-<p align="center">
   <a href="https://resumeloom.com/?ref=FZ818184">
     <img src="./images/collab/resumeloom1.png" alt="Resume Loom" width="100%" height="">
   </a>
@@ -340,42 +328,43 @@ Hide/Show table of contents
 | 280 | [How does useReducer work? Explain with an example](#how-does-usereducer-works-explain-with-an-example)                                                                                                                          |
 | 281 | [Can you combine useReducer with useContext?](#can-you-combine-usereducer-with-usecontext)                                                                                                                                       |
 | 282 | [Can you dispatch multiple actions in a row with useReducer?](#can-you-dispatch-multiple-actions-in-a-row-with-usereducer)                                                                                                       |
-| 283 | [How does useContext work? Explain with an example](#how-does-usecontext-works-explain-with-an-example)                                                                                                                          |
-| 284 | [Can you use multiple Contexts in one component?](#can-you-use-multiple-contexts-in-one-component)                                                                                                                               |
-| 285 | [What's a common pitfall when using useContext with objects?](#whats-a-common-pitfall-when-using-usecontext-with-objects)                                                                                                        |
-| 286 | [What would the context value be for no matching provider?](#what-would-the-context-value-be-for-no-matching-provider)                                                                                                           |
-| 287 | [How do reactive dependencies in the useEffect dependency array affect its execution behavior?](#how-do-reactive-dependencies-in-the-useeffect-dependency-array-affect-its-execution-behavior)                                   |
-| 288 | [When and how often does React invoke the setup and cleanup functions inside a useEffect hook?](#when-and-how-often-does-react-invoke-the-setup-and-cleanup-functions-inside-a-useeffect-hook)                                   |
-| 289 | [What happens if you return a Promise from useEffect?](#what-happens-if-you-return-a-promise-from-useeffect)                                                                                                                     |
-| 290 | [Can you have multiple useEffect hooks in a single component?](#can-you-have-multiple-useeffect-hooks-in-a-single-component)                                                                                                     |
-| 291 | [How to prevent infinite loops with useEffect?](#how-to-prevent-infinite-loops-with-useeffect)                                                                                                                                   |
-| 292 | [What are the use cases of useLayoutEffect?](#what-are-the-usecases-of-uselayouteffect)                                                                                                                                          |
-| 293 | [How does useLayoutEffect work during server-side rendering (SSR)?](#how-does-uselayouteffect-work-during-server-side-rendering-ssr)                                                                                             |
-| 294 | [What happens if you use useLayoutEffect for non-layout logic?](#what-happens-if-you-use-uselayouteffect-for-non-layout-logic)                                                                                                   |
-| 295 | [How does useLayoutEffect cause layout thrashing?](#how-does-uselayouteffect-cause-layout-thrashing)                                                                                                                             |
-| 296 | [How do you use useRef to access a DOM element in React? Give an example](#how-do-you-use-useref-to-access-a-dom-element-in-react-give-an-example)                                                                               |
-| 297 | [Can you use useRef to persist values across renders?](#can-you-use-useref-to-persist-values-across-renders)                                                                                                                     |
-| 298 | [Can useRef be used to store previous values?](#can-useref-be-used-to-store-previous-values)                                                                                                                                     |
-| 299 | [Is it possible to access a ref in the render method?](#is-it-possible-to-access-a-ref-in-the-render-method)                                                                                                                     |
-| 300 | [What are the common use cases of useRef hook?](#what-are-the-common-usecases-of-useref-hook)                                                                                                                                    |
-| 301 | [What is useImperativeHandle Hook? Give an example](#what-is-useimperativehandle-hook-give-an-example)                                                                                                                           |
-| 302 | [When should you use useImperativeHandle?](#when-should-you-use-useimperativehandle)                                                                                                                                             |
-| 303 | [Is it possible to use useImperativeHandle without forwardRef?](#is-that-possible-to-use-useimperativehandle-without-forwardref)                                                                                                 |
-| 304 | [How is useMemo different from useCallback?](#how-is-usememo-different-from-usecallback)                                                                                                                                         |
-| 305 | [Does useMemo prevent re-rendering of child components?](#does-usememo-prevent-re-rendering-of-child-components)                                                                                                                 |
-| 306 | [What is useCallback and why is it used?](#what-is-usecallback-and-why-is-it-used)                                                                                                                                               |
-| 307 | [What are Custom React Hooks, and how can you develop one?](#what-are-custom-react-hooks-and-how-can-you-develop-one)                                                                                                            |
-| 308 | [How does React Fiber work? Explain in detail](#how-does-react-fiber-works-explain-in-detail)                                                                                                                                    |
-| 309 | [What is the useId hook and when should you use it?](#what-is-the-useid-hook-and-when-should-you-use-it)                                                                                                                         |
-| 310 | [What is the useDeferredValue hook?](#what-is-the-usedeferredvalue-hook)                                                                                                                                                         |
-| 311 | [What is the useTransition hook and how does it differ from useDeferredValue?](#what-is-the-usetransition-hook-and-how-does-it-differ-from-usedeferredvalue)                                                                     |
-| 312 | [What is the useSyncExternalStore hook?](#what-is-the-usesyncexternalstore-hook)                                                                                                                                                 |
-| 313 | [What is the useInsertionEffect hook?](#what-is-the-useinsertioneffect-hook)                                                                                                                                                     |
-| 314 | [How do you share state logic between components using custom hooks?](#how-do-you-share-state-logic-between-components-using-custom-hooks)                                                                                       |
-| 315 | [What is the useDebugValue hook?](#what-is-the-usedebugvalue-hook)                                                                                                                                                               |
-| 316 | [How do you handle cleanup in useEffect?](#how-do-you-handle-cleanup-in-useeffect)                                                                                                                                               |
-| 317 | [What are the differences between useEffect and useEvent (experimental)?](#what-are-the-differences-between-useeffect-and-useevent-experimental)                                                                                 |
-| 318 | [What are the best practices for using React Hooks?](#what-are-the-best-practices-for-using-react-hooks)                                                                                                                         |
+| 283 | [Is dispatch from useReducer asynchronous and does it update state immediately?](#is-dispatch-from-usereducer-asynchronous-and-does-it-update-state-immediately)                                                                 |
+| 284 | [How does useContext work? Explain with an example](#how-does-usecontext-works-explain-with-an-example)                                                                                                                          |
+| 285 | [Can you use multiple Contexts in one component?](#can-you-use-multiple-contexts-in-one-component)                                                                                                                               |
+| 286 | [What's a common pitfall when using useContext with objects?](#whats-a-common-pitfall-when-using-usecontext-with-objects)                                                                                                        |
+| 287 | [What would the context value be for no matching provider?](#what-would-the-context-value-be-for-no-matching-provider)                                                                                                           |
+| 288 | [How do reactive dependencies in the useEffect dependency array affect its execution behavior?](#how-do-reactive-dependencies-in-the-useeffect-dependency-array-affect-its-execution-behavior)                                   |
+| 289 | [When and how often does React invoke the setup and cleanup functions inside a useEffect hook?](#when-and-how-often-does-react-invoke-the-setup-and-cleanup-functions-inside-a-useeffect-hook)                                   |
+| 290 | [What happens if you return a Promise from useEffect?](#what-happens-if-you-return-a-promise-from-useeffect)                                                                                                                     |
+| 291 | [Can you have multiple useEffect hooks in a single component?](#can-you-have-multiple-useeffect-hooks-in-a-single-component)                                                                                                     |
+| 292 | [How to prevent infinite loops with useEffect?](#how-to-prevent-infinite-loops-with-useeffect)                                                                                                                                   |
+| 293 | [What are the use cases of useLayoutEffect?](#what-are-the-usecases-of-uselayouteffect)                                                                                                                                          |
+| 294 | [How does useLayoutEffect work during server-side rendering (SSR)?](#how-does-uselayouteffect-work-during-server-side-rendering-ssr)                                                                                             |
+| 295 | [What happens if you use useLayoutEffect for non-layout logic?](#what-happens-if-you-use-uselayouteffect-for-non-layout-logic)                                                                                                   |
+| 296 | [How does useLayoutEffect cause layout thrashing?](#how-does-uselayouteffect-cause-layout-thrashing)                                                                                                                             |
+| 297 | [How do you use useRef to access a DOM element in React? Give an example](#how-do-you-use-useref-to-access-a-dom-element-in-react-give-an-example)                                                                               |
+| 298 | [Can you use useRef to persist values across renders?](#can-you-use-useref-to-persist-values-across-renders)                                                                                                                     |
+| 299 | [Can useRef be used to store previous values?](#can-useref-be-used-to-store-previous-values)                                                                                                                                     |
+| 300 | [Is it possible to access a ref in the render method?](#is-it-possible-to-access-a-ref-in-the-render-method)                                                                                                                     |
+| 301 | [What are the common use cases of useRef hook?](#what-are-the-common-usecases-of-useref-hook)                                                                                                                                    |
+| 302 | [What is useImperativeHandle Hook? Give an example](#what-is-useimperativehandle-hook-give-an-example)                                                                                                                           |
+| 303 | [When should you use useImperativeHandle?](#when-should-you-use-useimperativehandle)                                                                                                                                             |
+| 304 | [Is it possible to use useImperativeHandle without forwardRef?](#is-that-possible-to-use-useimperativehandle-without-forwardref)                                                                                                 |
+| 305 | [How is useMemo different from useCallback?](#how-is-usememo-different-from-usecallback)                                                                                                                                         |
+| 306 | [Does useMemo prevent re-rendering of child components?](#does-usememo-prevent-re-rendering-of-child-components)                                                                                                                 |
+| 307 | [What is useCallback and why is it used?](#what-is-usecallback-and-why-is-it-used)                                                                                                                                               |
+| 308 | [What are Custom React Hooks, and how can you develop one?](#what-are-custom-react-hooks-and-how-can-you-develop-one)                                                                                                            |
+| 309 | [How does React Fiber work? Explain in detail](#how-does-react-fiber-works-explain-in-detail)                                                                                                                                    |
+| 310 | [What is the useId hook and when should you use it?](#what-is-the-useid-hook-and-when-should-you-use-it)                                                                                                                         |
+| 311 | [What is the useDeferredValue hook?](#what-is-the-usedeferredvalue-hook)                                                                                                                                                         |
+| 312 | [What is the useTransition hook and how does it differ from useDeferredValue?](#what-is-the-usetransition-hook-and-how-does-it-differ-from-usedeferredvalue)                                                                     |
+| 313 | [What is the useSyncExternalStore hook?](#what-is-the-usesyncexternalstore-hook)                                                                                                                                                 |
+| 314 | [What is the useInsertionEffect hook?](#what-is-the-useinsertioneffect-hook)                                                                                                                                                     |
+| 315 | [How do you share state logic between components using custom hooks?](#how-do-you-share-state-logic-between-components-using-custom-hooks)                                                                                       |
+| 316 | [What is the useDebugValue hook?](#what-is-the-usedebugvalue-hook)                                                                                                                                                               |
+| 317 | [How do you handle cleanup in useEffect?](#how-do-you-handle-cleanup-in-useeffect)                                                                                                                                               |
+| 318 | [What are the differences between useEffect and useEvent (experimental)?](#what-are-the-differences-between-useeffect-and-useevent-experimental)                                                                                 |
+| 319 | [What are the best practices for using React Hooks?](#what-are-the-best-practices-for-using-react-hooks)                                                                                                                         |
 
 </details>
 
@@ -6966,7 +6955,88 @@ Technically it is possible to write nested function components but it is not sug
 
 **[⬆ Back to Top](#table-of-contents)**
 
-283. ### How does useContext works? Explain with an example
+283. ### Is dispatch from useReducer asynchronous and does it update state immediately?
+
+     The `dispatch` function returned by `useReducer` is **not asynchronous** — it is a **synchronous** function call. When you call `dispatch(action)`, React **synchronously** invokes your reducer with the current state and the action, computes the new state, and **schedules a re-render**. However, the **state variable does not update immediately** within the same render cycle. The updated state is only available in the **next render**.
+
+     This behavior is similar to `useState`'s `setState` — React **batches** state updates for performance optimization, meaning the component does not re-render immediately after each `dispatch` call. Instead, React processes all dispatched actions and re-renders once with the final state.
+
+     #### Key Points
+
+     1. **`dispatch` is synchronous:** The reducer runs immediately when `dispatch` is called.
+     2. **State update is not immediate in the current render:** The state variable still holds the old value until the next render.
+     3. **React batches updates:** Multiple `dispatch` calls within the same event handler result in a single re-render.
+     4. **Reducer is a pure function:** It computes the new state without side effects.
+
+     #### Example demonstrating that state does not update immediately
+
+     ```jsx
+     import React, { useReducer } from 'react';
+
+     function reducer(state, action) {
+       switch (action.type) {
+         case 'increment':
+           return { count: state.count + 1 };
+         default:
+           return state;
+       }
+     }
+
+     function Counter() {
+       const [state, dispatch] = useReducer(reducer, { count: 0 });
+
+       const handleClick = () => {
+         dispatch({ type: 'increment' });
+         console.log(state.count); // Still logs the OLD value (e.g., 0), not 1
+         dispatch({ type: 'increment' });
+         console.log(state.count); // Still logs the OLD value (e.g., 0), not 2
+       };
+
+       // After re-render, state.count will be 2 (both dispatches are processed)
+       return (
+         <div>
+           <p>Count: {state.count}</p>
+           <button onClick={handleClick}>Increment Twice</button>
+         </div>
+       );
+     }
+     ```
+
+     In the above example, even though `dispatch` is called twice, `state.count` still reflects the **previous** value inside the event handler. React batches both dispatches and re-renders the component **once** with `count: 2`.
+
+     #### How to read updated state after dispatch
+
+     If you need the updated value right after dispatching, you have several options:
+
+     1. **Use `useEffect` to react to state changes:**
+        ```jsx
+        useEffect(() => {
+          console.log('Updated count:', state.count);
+        }, [state.count]);
+        ```
+
+     2. **Compute the next state manually:**
+        ```jsx
+        const handleClick = () => {
+          const nextState = reducer(state, { type: 'increment' });
+          console.log('Next state will be:', nextState.count);
+          dispatch({ type: 'increment' });
+        };
+        ```
+
+     3. **Use `useRef` to track the latest state:**
+        ```jsx
+        const stateRef = useRef(state);
+        useEffect(() => {
+          stateRef.current = state;
+        }, [state]);
+        ```
+
+     **Note:** This behavior is by design in React. The `dispatch` function itself has a **stable identity** (it doesn't change between re-renders), which makes it safe to omit from `useEffect` dependency arrays.
+
+**[⬆ Back to Top](#table-of-contents)**
+
+284. ### How does useContext works? Explain with an example
      The `useContext` hook can be used for authentication state management across multiple components and pages in a React application.
     
      Let's build a simple authentication flow with:
@@ -7076,7 +7146,7 @@ Technically it is possible to write nested function components but it is not sug
 
 **[⬆ Back to Top](#table-of-contents)**
 
-284. ### Can You Use Multiple Contexts in One Component?
+285. ### Can You Use Multiple Contexts in One Component?
      Yes, it is possible. You can use multiple contexts inside the same component by calling useContext multiple times, once for each context.
 
      It can be achieved with below steps,
@@ -7122,7 +7192,7 @@ Technically it is possible to write nested function components but it is not sug
 
 **[⬆ Back to Top](#table-of-contents)**
 
-285. ###  What's a common pitfall when using useContext with objects?
+286. ###  What's a common pitfall when using useContext with objects?
      A **common pitfall** when using `useContext` with objects is **triggering unnecessary re-renders** across all consuming components — even when only part of the context value changes.
 
      When you provide an object as the context value, React compares the entire object reference. If the object changes (even slightly), React assumes the whole context has changed, and **all components using** `useContext(MyContext)` **will re-render**, regardless of whether they use the part that changed.
@@ -7168,7 +7238,7 @@ Technically it is possible to write nested function components but it is not sug
     
   **[⬆ Back to Top](#table-of-contents)**
 
-286. ### What would the context value be for no matching provider?
+287. ### What would the context value be for no matching provider?
     
      When a component calls `useContext(SomeContext)` but **no matching** `<SomeContext.Provider>` **is present higher up in the component tree**, the **default value** passed to `React.createContext(defaultValue)` is returned.
     
@@ -7197,7 +7267,7 @@ Technically it is possible to write nested function components but it is not sug
 
 **[⬆ Back to Top](#table-of-contents)**
 
-287. ### How do reactive dependencies in the useEffect dependency array affect its execution behavior?
+288. ### How do reactive dependencies in the useEffect dependency array affect its execution behavior?
      The `useEffect` hook accepts an optional dependencies argument that accepts an array of reactive values. The **dependency array** determines **when** the effect runs. i.e, It makes `useEffect` _reactive_ to changes in specified values.
 
      #### **How Dependency Array Affects Behavior**
@@ -7242,7 +7312,7 @@ Technically it is possible to write nested function components but it is not sug
 
 **[⬆ Back to Top](#table-of-contents)**
 
-288. ### When and how often does React invoke the setup and cleanup functions inside a useEffect hook?
+289. ### When and how often does React invoke the setup and cleanup functions inside a useEffect hook?
 
      1. **Setup Function Execution (`useEffect`)**
 
@@ -7258,7 +7328,7 @@ Technically it is possible to write nested function components but it is not sug
 
 **[⬆ Back to Top](#table-of-contents)**
 
-289. ### What happens if you return a Promise from useEffect??
+290. ### What happens if you return a Promise from useEffect??
       You should NOT return a Promise from useEffect. React expects the function passed to useEffect to return either nothing (undefined) or a cleanup function (synchronous function). i.e, It does not expect or handle a returned Promise. If you still return a Promise, React will ignore it silently, and it may lead to bugs or warnings in strict mode.
 
       **Incorrect:**
@@ -7281,7 +7351,7 @@ Technically it is possible to write nested function components but it is not sug
       ```
 **[⬆ Back to Top](#table-of-contents)**
 
-289. ### Can you have multiple useEffect hooks in a single component?
+290. ### Can you have multiple useEffect hooks in a single component?
       Yes, multiple useEffect hooks are allowed and recommended when you want to separate concerns.
 
       ```jsx
@@ -7297,7 +7367,7 @@ Technically it is possible to write nested function components but it is not sug
 
 **[⬆ Back to Top](#table-of-contents)**
 
-290. ### How to prevent infinite loops with useEffect?
+291. ### How to prevent infinite loops with useEffect?
         Infinite loops happen when the effect updates state that’s listed in its own dependency array, which causes the effect to re-run, updating state again and so on.
         
         **Infinite loop scenario:**
@@ -7316,7 +7386,7 @@ Technically it is possible to write nested function components but it is not sug
         ```
 **[⬆ Back to Top](#table-of-contents)**
 
-291. ### What are the usecases of useLayoutEffect?
+292. ### What are the usecases of useLayoutEffect?
       You need to use `useLayoutEffect` when your effect **must run before the browser paints**, such as:
 
       *   **Reading layout measurements** (e.g., element size, scroll position)
@@ -7337,7 +7407,7 @@ Technically it is possible to write nested function components but it is not sug
 
 **[⬆ Back to Top](#table-of-contents)**
 
-292. ### How does useLayoutEffect work during server-side rendering (SSR)?
+293. ### How does useLayoutEffect work during server-side rendering (SSR)?
 
      The `useLayoutEffect` hook does **not run on the server**, because there is no DOM. React issues a warning in server environments like Next.js if `useLayoutEffect` is used directly.
 
@@ -7352,7 +7422,7 @@ Technically it is possible to write nested function components but it is not sug
 
 **[⬆ Back to Top](#table-of-contents)** 
 
-293. ### What happens if you use useLayoutEffect for non-layout logic?
+294. ### What happens if you use useLayoutEffect for non-layout logic?
       Using `useLayoutEffect` for logic **unrelated to layout or visual DOM changes** (such as logging, data fetching, or analytics) is **not recommended**. It can lead to **performance issues** or even unexpected behavior.
 
       **Example: Anti-pattern**
@@ -7366,7 +7436,7 @@ Technically it is possible to write nested function components but it is not sug
 
 **[⬆ Back to Top](#table-of-contents)** 
 
-294. ### How does useLayoutEffect cause layout thrashing?
+295. ### How does useLayoutEffect cause layout thrashing?
       The `useLayoutEffect` can **cause layout thrashing** when you **repeatedly read and write to the DOM** in ways that force the browser to recalculate layout multiple times per frame. This is because `useLayoutEffect` runs _before the browser paints_, these reflows happen _synchronously_, blocking rendering and degrading performance.
 
       **Example:**
@@ -7389,7 +7459,7 @@ Technically it is possible to write nested function components but it is not sug
 
 **[⬆ Back to Top](#table-of-contents)** 
 
-295. ### How Do You Use useRef to Access a DOM Element in React? Give an example.
+296. ### How Do You Use useRef to Access a DOM Element in React? Give an example.
         The `useRef` hook is commonly used in React to directly reference and interact with DOM elements — like focusing an input, scrolling to a section, or controlling media elements.
         
         When you assign a ref to a DOM element using useRef, React gives you access to the underlying DOM node via the .current property of the ref object.
@@ -7418,7 +7488,7 @@ Technically it is possible to write nested function components but it is not sug
 
 **[⬆ Back to Top](#table-of-contents)**
 
-296. ### Can you use useRef to persist values across renders??
+297. ### Can you use useRef to persist values across renders??
         Yes, you can use `useRef` to persist values across renders in React. Unlike `useState`, changing `.current` does not cause re-renders, but the value is preserved across renders.
         
         **Example:**
@@ -7435,7 +7505,7 @@ Technically it is possible to write nested function components but it is not sug
         ```
 **[⬆ Back to Top](#table-of-contents)**
 
-297. ###  Can useRef be used to store previous values?
+298. ###  Can useRef be used to store previous values?
         Yes, `useRef` is a common pattern when you want to compare current and previous props or state without causing re-renders.
         
         **Example: Storing previous state value**
@@ -7464,7 +7534,7 @@ Technically it is possible to write nested function components but it is not sug
      
 **[⬆ Back to Top](#table-of-contents)**
 
-298. ### Is it possible to access a ref in the render method?
+299. ### Is it possible to access a ref in the render method?
         Yes, you can access a ref in the render method, but what you get from it depends on how you're using the ref and when in the component lifecycle you're rendering.
         
         For example, when using ref to access a DOM node (e.g., divRef.current), it's not immediately available on the first render.
@@ -7477,7 +7547,7 @@ Technically it is possible to write nested function components but it is not sug
      
 **[⬆ Back to Top](#table-of-contents)**
 
-299. ### What are the common usecases of useRef hook?
+300. ### What are the common usecases of useRef hook?
       Some of the common cases are:
       *   Automatically focus an input when a component mounts.
       *   Scroll to a specific element.
@@ -7487,7 +7557,7 @@ Technically it is possible to write nested function components but it is not sug
 
 **[⬆ Back to Top](#table-of-contents)**
 
-300. ### What is useImperativeHandle Hook? Give an example.
+301. ### What is useImperativeHandle Hook? Give an example.
       `useImperativeHandle` is a React Hook that allows a **child component** to expose **custom functions or properties** to its **parent component**, when using `ref`.
       It is typically used with `forwardRef` and is very useful in cases like **modals**, **dialogs**, **custom inputs**, etc., where the parent needs to **control behavior imperatively** (e.g., open, close, reset).
 
@@ -7548,7 +7618,7 @@ Technically it is possible to write nested function components but it is not sug
 
 **[⬆ Back to Top](#table-of-contents)**
 
-301. ### When should you use useImperativeHandle?
+302. ### When should you use useImperativeHandle?
       The useImperativeHandler hook will be used in below cases:
 
       *   You want to expose **imperative methods** from a child component 
@@ -7560,12 +7630,12 @@ Technically it is possible to write nested function components but it is not sug
   
 **[⬆ Back to Top](#table-of-contents)**
 
-302. ### Is that possible to use useImperativeHandle without forwardRef?
+303. ### Is that possible to use useImperativeHandle without forwardRef?
         **No.** `useImperativeHandle` only works when the component is wrapped in `forwardRef`. It's the combination that allows parent components to use a `ref` on a function component.
 
 **[⬆ Back to Top](#table-of-contents)**
 
-303. ### How is useMemo different from useCallback?
+304. ### How is useMemo different from useCallback?
      The following table compares both useMemo and useCallback:
 
       | Feature | `useMemo` | `useCallback` |
@@ -7582,7 +7652,7 @@ Technically it is possible to write nested function components but it is not sug
 
 **[⬆ Back to Top](#table-of-contents)**
 
-304. ### Does useMemo prevent re-rendering of child components?
+305. ### Does useMemo prevent re-rendering of child components?
 
         The `useMemo` hook **does not directly prevent re-rendering of child components**. Its main purpose is to memoize the result of an expensive computation so that it doesn’t get recalculated unless its dependencies change. While this can improve performance, it doesn’t inherently control whether a child component re-renders.
         
@@ -7590,7 +7660,7 @@ Technically it is possible to write nested function components but it is not sug
 
 **[⬆ Back to Top](#table-of-contents)**
 
-305. ### What is `useCallback` and why is it used?
+306. ### What is `useCallback` and why is it used?
 
         The `useCallback` is a React Hook used to memoize **function definitions** between renders. It returns the same function reference unless its dependencies change. This is especially useful when passing callbacks to optimized child components (e.g. those wrapped in `React.memo`) to prevent unnecessary re-renders.
         
@@ -7606,7 +7676,7 @@ Technically it is possible to write nested function components but it is not sug
 
 **[⬆ Back to Top](#table-of-contents)**
 
-306. ### What are Custom React Hooks, and How Can You Develop One?
+307. ### What are Custom React Hooks, and How Can You Develop One?
 
       **Custom Hooks** in React are JavaScript functions that allow you to **extract and reuse component logic** using React’s built-in Hooks like `useState`, `useEffect`, etc.
 
@@ -7680,7 +7750,7 @@ Technically it is possible to write nested function components but it is not sug
   
 **[⬆ Back to Top](#table-of-contents)**
 
-308. ### How does React Fiber works? Explain in detail.
+309. ### How does React Fiber works? Explain in detail.
 
       React Fiber is the **core engine** that enables advanced features like **concurrent rendering**, **prioritization**, and **interruptibility** in React. Here's how it works:
           
@@ -7726,7 +7796,7 @@ Technically it is possible to write nested function components but it is not sug
 
 **[⬆ Back to Top](#table-of-contents)**
 
-309. ### What is the useId hook and when should you use it?
+310. ### What is the useId hook and when should you use it?
 
      The `useId` hook is a React hook introduced in React 18 that generates **unique IDs** that are stable across server and client renders. It's primarily used for **accessibility attributes** like linking form labels to inputs.
 
@@ -7765,7 +7835,7 @@ Technically it is possible to write nested function components but it is not sug
 
 **[⬆ Back to Top](#table-of-contents)**
 
-310. ### What is the useDeferredValue hook?
+311. ### What is the useDeferredValue hook?
 
      The `useDeferredValue` hook is used to **defer updating a part of the UI** to keep other parts responsive. It accepts a value and returns a "deferred" version of that value that may lag behind. This is useful for optimizing performance when rendering expensive components.
 
@@ -7817,7 +7887,7 @@ Technically it is possible to write nested function components but it is not sug
 
 **[⬆ Back to Top](#table-of-contents)**
 
-311. ### What is the useTransition hook and how does it differ from useDeferredValue?
+312. ### What is the useTransition hook and how does it differ from useDeferredValue?
 
      The `useTransition` hook allows you to mark certain state updates as **non-urgent transitions**, keeping the UI responsive during expensive re-renders. It returns a `isPending` flag and a `startTransition` function.
 
@@ -7867,7 +7937,7 @@ Technically it is possible to write nested function components but it is not sug
 
 **[⬆ Back to Top](#table-of-contents)**
 
-312. ### What is the useSyncExternalStore hook?
+313. ### What is the useSyncExternalStore hook?
 
      The `useSyncExternalStore` hook is designed to **subscribe to external stores** (non-React state sources) in a way that's compatible with concurrent rendering. It's primarily used by library authors for state management libraries.
 
@@ -7911,7 +7981,7 @@ Technically it is possible to write nested function components but it is not sug
 
 **[⬆ Back to Top](#table-of-contents)**
 
-313. ### What is the useInsertionEffect hook?
+314. ### What is the useInsertionEffect hook?
 
      The `useInsertionEffect` hook is designed for **CSS-in-JS library authors** to inject styles into the DOM before any layout effects run. It fires synchronously before DOM mutations.
 
@@ -7961,7 +8031,7 @@ Technically it is possible to write nested function components but it is not sug
 
 **[⬆ Back to Top](#table-of-contents)**
 
-314. ### How do you share state logic between components using custom hooks?
+315. ### How do you share state logic between components using custom hooks?
 
      Custom hooks allow you to **extract and share stateful logic** between components without changing their hierarchy. The state itself is not shared—each component using the hook gets its own isolated state.
 
@@ -8019,7 +8089,7 @@ Technically it is possible to write nested function components but it is not sug
 
 **[⬆ Back to Top](#table-of-contents)**
 
-315. ### What is the useDebugValue hook?
+316. ### What is the useDebugValue hook?
 
      The `useDebugValue` hook is used to **display a label** for custom hooks in **React DevTools**. It helps developers debug custom hooks by showing meaningful information.
 
@@ -8072,7 +8142,7 @@ Technically it is possible to write nested function components but it is not sug
 
 **[⬆ Back to Top](#table-of-contents)**
 
-316. ### How do you handle cleanup in useEffect?
+317. ### How do you handle cleanup in useEffect?
 
      The cleanup function in `useEffect` is used to **clean up side effects** before the component unmounts or before the effect runs again. This prevents memory leaks, stale data, and unexpected behavior.
 
@@ -8143,7 +8213,7 @@ Technically it is possible to write nested function components but it is not sug
 
 **[⬆ Back to Top](#table-of-contents)**
 
-316. ### What are the differences between useEffect and useEvent (experimental)?
+317. ### What are the differences between useEffect and useEvent (experimental)?
 
      `useEvent` is an **experimental hook** (not yet stable in React) designed to solve the problem of creating **stable event handlers** that always access the latest props and state without causing re-renders or needing to be in dependency arrays.
 
@@ -8190,7 +8260,7 @@ Technically it is possible to write nested function components but it is not sug
 
 **[⬆ Back to Top](#table-of-contents)**
 
-317. ### What are the best practices for using React Hooks?
+318. ### What are the best practices for using React Hooks?
 
      Following best practices ensures your hooks are predictable, maintainable, and bug-free.
 

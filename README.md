@@ -284,7 +284,7 @@ Hide/Show table of contents
 | 227 | [What is MobX?](#what-is-mobx)                                                                                                                                                                                                   |
 | 228 | [What are the differences between Redux and MobX?](#what-are-the-differences-between-redux-and-mobx)                                                                                                                             |
 | 229 | [Should you learn ES6 before learning ReactJS?](#should-i-learn-es6-before-learning-reactjs)                                                                                                                                     |
-| 230 | [What is concurrent rendering?](#what-is-concurrent-rendering)                                                                                                                                                                   |
+| 230 | [Explain concurrent rendering with an example](#explain-concurrent-rendering-with-an-example)                                                                                                                                   |
 | 231 | [What is the difference between async mode and concurrent mode?](#what-is-the-difference-between-async-mode-and-concurrent-mode)                                                                                                 |
 | 233 | [What is the purpose of the ESLint plugin for Hooks?](#what-is-the-purpose-of-eslint-plugin-for-hooks)                                                                                                                           |
 | 234 | [What is the difference between imperative and declarative programming in React?](#what-is-the-difference-between-imperative-and-declarative-in-react)                                                                             |
@@ -383,6 +383,7 @@ Hide/Show table of contents
 | 325 | [What is the useOptimistic hook?](#what-is-the-useoptimistic-hook)                                                                                                                                                               |
 | 326 | [What is the React Compiler (React Forget)?](#what-is-the-react-compiler-react-forget)                                                                                                                                           |
 | 327 | [What is Streaming SSR and how does React 18+ improve it?](#what-is-streaming-ssr-and-how-does-react-18-improve-it)                                                                                                              |
+| 328 | [What is `renderToPipeableStream` and how is it different from renderToString?](#what-is-rendertopipeablestream-and-how-is-it-different-from-rendertostring)                                                                     |
 
 </details>
 
@@ -396,6 +397,7 @@ Hide/Show table of contents
 | No. | Questions                                                                                                                                                                                  |
 | --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 |     | **Old Q&A**                                                                                                                                                                                |
+| 0   | [What is Concurrent Rendering? (Legacy)](#what-is-concurrent-rendering-legacy)                                                                                                           |
 | 1   | [Why should we not update the state directly?](#why-should-we-not-update-the-state-directly)                                                                                               |
 | 2   | [What is the purpose of callback function as an argument of setState()?](#what-is-the-purpose-of-callback-function-as-an-argument-of-setstate)                                             |
 | 3   | [How to bind methods or event handlers in JSX callbacks?](#how-to-bind-methods-or-event-handlers-in-jsx-callbacks)                                                                         |
@@ -4974,33 +4976,35 @@ class ParentComponent extends React.Component {
 
 199. ### What is suspense component?
 
-     React Suspense is a built-in feature that lets you defer rendering part of your component tree until some condition(asynchronous operation) is met—usually, data or code has finished loading. While waiting, Suspense lets you display a fallback UI like a spinner or placeholder.
+     React Suspense is a built-in feature that lets you delay rendering part of the UI until asynchronous work (such as loading a component or fetching data) is ready. While waiting, React shows a fallback UI (loading text, skeleton, spinner, etc.) defined by the nearest `<Suspense>` boundary.
 
+     Common use cases:
 
-     1. Lazy loading components uses suspense feature,
+     1. **Code splitting with `React.lazy()`**
 
-
-        If the module containing the dynamic import is not yet loaded by the time parent component renders, you must show some fallback content while you’re waiting for it to load using a loading indicator. This can be done using **Suspense** component.
-    
         ```javascript
-        const OtherComponent = React.lazy(() => import("./OtherComponent"));
+        import { Suspense, lazy } from "react";
+
+        const OtherComponent = lazy(() => import("./OtherComponent"));
 
         function MyComponent() {
           return (
-            <div>
-              <Suspense fallback={<div>Loading...</div>}>
-                <OtherComponent />
-              </Suspense>
-            </div>
+            <Suspense fallback={<div>Loading component...</div>}>
+              <OtherComponent />
+            </Suspense>
           );
         }
         ```
-        The above component shows fallback UI instead real component until `OtherComponent` is fully loaded.
 
-     2. As an another example, suspend until async data(data fetching) is ready
-      ```jsx
+        The fallback is shown until `OtherComponent` is downloaded and rendered.
+
+     2. **Data fetching that can suspend**
+
+        ```jsx
+        import { Suspense, use } from "react";
+
         function UserProfile() {
-          const user = use(fetchUser()); // throws a promise internally
+          const user = use(fetchUser()); // suspends until promise resolves
           return <div>{user.name}</div>;
         }
 
@@ -5011,8 +5015,34 @@ class ParentComponent extends React.Component {
             </Suspense>
           );
         }
+        ```
 
-    ```
+     3. **Nested Suspense for progressive loading**
+
+        Nested boundaries let important content render first while slower sections keep loading.
+
+        ```jsx
+        import { Suspense, lazy } from "react";
+
+        const ProductDetails = lazy(() => import("./ProductDetails"));
+        const ProductReviews = lazy(() => import("./ProductReviews"));
+
+        function ProductPage() {
+          return (
+            <Suspense fallback={<PageSkeleton />}>
+              <ProductDetails />
+
+              <Suspense fallback={<ReviewsSkeleton />}>
+                <ProductReviews />
+              </Suspense>
+            </Suspense>
+          );
+        }
+        ```
+
+        Here, `ProductDetails` can appear first, and `ProductReviews` can continue loading with its own fallback.
+
+     **Tip:** Keep Suspense boundaries close to slow UI regions so users see meaningful content sooner.
      
 
 **[⬆ Back to Top](#table-of-contents)**
@@ -5478,19 +5508,52 @@ class ParentComponent extends React.Component {
 
 **[⬆ Back to Top](#table-of-contents)**
 
-230. ### What is Concurrent Rendering?
+230. ### Explain concurrent rendering with an example
 
-     The Concurrent rendering makes React apps to be more responsive by rendering component trees without blocking the main UI thread. It allows React to interrupt a long-running render to handle a high-priority event. i.e, When you enabled concurrent Mode, React will keep an eye on other tasks that need to be done, and if there's something with a higher priority it will pause what it is currently rendering and let the other task finish first. You can enable this in two ways,
+     Concurrent rendering in React 18 lets React prepare UI updates in a non-blocking way. This means React can pause low-priority rendering work, handle urgent updates first (like typing or clicking), and then continue rendering.
 
-     ```javascript
-     // 1. Part of an app by wrapping with ConcurrentMode
-     <React.unstable_ConcurrentMode>
-       <Something />
-     </React.unstable_ConcurrentMode>;
+     #### Example: Search input stays responsive while filtering a large list
 
-     // 2. Whole app using createRoot
-     ReactDOM.unstable_createRoot(domNode).render(<App />);
+     ```jsx
+     import { useMemo, useState, useTransition } from "react";
+
+     const items = Array.from({ length: 10000 }, (_, i) => `Item ${i + 1}`);
+
+     export default function SearchList() {
+       const [query, setQuery] = useState("");
+       const [filter, setFilter] = useState("");
+       const [isPending, startTransition] = useTransition();
+
+       function handleChange(e) {
+         const value = e.target.value;
+         setQuery(value); // urgent: keep input in sync
+
+         // non-urgent: expensive list filtering can be interrupted
+         startTransition(() => {
+           setFilter(value);
+         });
+       }
+
+       const filteredItems = useMemo(
+         () => items.filter((item) => item.toLowerCase().includes(filter.toLowerCase())),
+         [filter]
+       );
+
+       return (
+         <div>
+           <input value={query} onChange={handleChange} placeholder="Type to filter" />
+           {isPending && <p>Updating results...</p>}
+           <ul>
+             {filteredItems.slice(0, 200).map((item) => (
+               <li key={item}>{item}</li>
+             ))}
+           </ul>
+         </div>
+       );
+     }
      ```
+
+     In this example, typing remains smooth because React prioritizes updating the input first, while list filtering is treated as interruptible background work.
 
 **[⬆ Back to Top](#table-of-contents)**
 
@@ -9166,7 +9229,82 @@ Technically it is possible to write nested function components but it is not sug
 
 **[⬆ Back to Top](#table-of-contents)**
 
+328. ### What is `renderToPipeableStream` and how is it different from `renderToString`?
+
+     `renderToPipeableStream` is the React 18+ Node.js streaming SSR API from `react-dom/server`. It streams HTML in chunks, so users can see content earlier and React can coordinate Suspense boundaries during server rendering.
+
+     `renderToString` is the older API that generates the entire HTML string first and sends it only after rendering is fully complete.
+
+     #### Key Differences
+
+     | Aspect | `renderToString` | `renderToPipeableStream` |
+     | --- | --- | --- |
+     | Rendering model | All-at-once | Streaming/chunked |
+     | Suspense on server | Limited fallback behavior | First-class Suspense streaming |
+     | Time to first byte | Usually slower for large pages | Faster, can flush shell early |
+     | UX for slow data | Entire page waits | Progressive reveal with fallbacks |
+     | Best for | Small/simple SSR pages | Modern SSR apps with async data |
+
+     #### `renderToString` example
+
+     ```javascript
+     import express from "express";
+     import { renderToString } from "react-dom/server";
+     import App from "./App";
+
+     const app = express();
+
+     app.get("/", (req, res) => {
+       const html = renderToString(<App />);
+       res.send(`<!doctype html><html><body><div id="root">${html}</div></body></html>`);
+     });
+     ```
+
+     #### `renderToPipeableStream` example
+
+     ```javascript
+     import express from "express";
+     import { renderToPipeableStream } from "react-dom/server";
+     import App from "./App";
+
+     const app = express();
+
+     app.get("/", (req, res) => {
+       const { pipe } = renderToPipeableStream(<App />, {
+         onShellReady() {
+           res.setHeader("Content-Type", "text/html");
+           res.write("<!doctype html><html><body><div id=\"root\">");
+           pipe(res);
+         },
+         onAllReady() {
+           res.end("</div></body></html>");
+         },
+         onError(error) {
+           console.error(error);
+         },
+       });
+     });
+     ```
+
+     In practice, prefer `renderToPipeableStream` for React 18+ SSR because it improves perceived performance and works naturally with Suspense-driven progressive loading.
+
 ## Old Q&A
+
+0. ### What is Concurrent Rendering? (Legacy)
+
+   The Concurrent rendering makes React apps to be more responsive by rendering component trees without blocking the main UI thread. It allows React to interrupt a long-running render to handle a high-priority event. i.e, When you enabled concurrent Mode, React will keep an eye on other tasks that need to be done, and if there's something with a higher priority it will pause what it is currently rendering and let the other task finish first. You can enable this in two ways,
+
+   ```javascript
+   // 1. Part of an app by wrapping with ConcurrentMode
+   <React.unstable_ConcurrentMode>
+     <Something />
+   </React.unstable_ConcurrentMode>;
+
+   // 2. Whole app using createRoot
+   ReactDOM.unstable_createRoot(domNode).render(<App />);
+   ```
+
+   **[⬆ Back to Top](#table-of-contents)**
 
 1. ### Why should we not update the state directly?
 

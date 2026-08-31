@@ -385,6 +385,8 @@ Hide/Show table of contents
 | 327 | [What is Streaming SSR and how does React 18+ improve it?](#what-is-streaming-ssr-and-how-does-react-18-improve-it)                                                                                                              |
 | 328 | [What is `renderToPipeableStream` and how is it different from renderToString?](#what-is-rendertopipeablestream-and-how-is-it-different-from-rendertostring)                                                                     |
 | 329 | [What is the difference between HOCs and Hooks?](#what-is-the-difference-between-hocs-and-hooks)                                                                                                                                 |
+| 330 | [Does `React.memo` prevent Context consumers from re-rendering?](#does-reactmemo-prevent-context-consumers-from-re-rendering)                                                                                                    |
+| 331 | [How would you create a reusable Context?](#how-would-you-create-a-reusable-context)                                                                                                                                             |
 
 </details>
 
@@ -3429,6 +3431,25 @@ class ParentComponent extends React.Component {
 
      Whereas **Redux** is much more powerful and provides a large number of features that the Context API doesn't provide. Also, React Redux uses context internally but it doesn't expose this fact in the public API.
 
+     | Aspect | Context API | Redux |
+     | --- | --- | --- |
+     | Purpose | Dependency injection — passes data through the tree without prop drilling | Full state-management library with a predictable, centralized store |
+     | State updates | Plain `useState`/`useReducer` next to the provider; no built-in middleware | Actions + reducers, with middleware support (`redux-thunk`, `redux-saga`, etc.) |
+     | Performance | Every consumer re-renders on any value change unless you split contexts/memoize | Uses selectors (`useSelector`/`connect`) so components only re-render when the selected slice changes |
+     | DevTools | None built-in | Time-travel debugging, action logs via Redux DevTools |
+     | Async logic | You wire it yourself (custom hooks, effects) | Standardized patterns via middleware |
+     | Boilerplate | Minimal — just `createContext`/`useContext` | More setup, though Redux Toolkit reduces this significantly |
+
+     #### Does Context replace Redux?
+
+     Not entirely — they solve overlapping but different problems, so the right choice depends on the app's needs:
+
+     - **Context is a good fit** for low-frequency, mostly-static data that many components need (theme, locale, authenticated user, feature flags). Combined with `useReducer`, it can even model simple local/global state without pulling in Redux (see [Can you combine useReducer with useContext?](#can-you-combine-usereducer-with-usecontext)).
+     - **Redux is still preferable** for large apps with complex, frequently-updating state, cross-cutting concerns like caching/undo/logging, a need for middleware (async flows, side effects), or debugging tools like time-travel and action replay.
+     - **Performance matters**: Context has no built-in mechanism to prevent unnecessary re-renders of all consumers when the provided value changes, whereas Redux's `useSelector` re-renders only the components that depend on the changed slice of state.
+
+     In short, Context is a simpler tool for prop-drilling/dependency-injection use cases, while Redux remains a more robust, scalable option for complex application-wide state management. Many apps use both together — Context for simple, rarely-changing values and Redux (or another store) for the rest.
+
 **[⬆ Back to Top](#table-of-contents)**
 
 113. ### Why are Redux state functions called reducers?
@@ -5200,6 +5221,28 @@ class ParentComponent extends React.Component {
 
 206. ### What are the problems of using render props with pure components?
      If you create a function inside a render method, it negates the purpose of pure component. Because the shallow prop comparison will always return false for new props, and each render in this case will generate a new value for the render prop. You can solve this issue by defining the render function as instance method.
+
+     ```javascript
+     class Mouse extends React.PureComponent {
+       render() {
+         // BAD: a new arrow function reference is created on every render,
+         // so PureComponent's shallow comparison always sees "new" props
+         return <MouseTracker render={(mouse) => <Cat mouse={mouse} />} />;
+       }
+     }
+     ```
+
+     ```javascript
+     class MouseWithCat extends React.PureComponent {
+       // GOOD: defined once as an instance method/class property, so the
+       // reference stays stable across renders
+       renderTheCat = (mouse) => <Cat mouse={mouse} />;
+
+       render() {
+         return <MouseTracker render={this.renderTheCat} />;
+       }
+     }
+     ```
 
 **[⬆ Back to Top](#table-of-contents)**
 
@@ -9337,6 +9380,103 @@ Technically it is possible to write nested function components but it is not sug
 
      In short, Hooks were introduced to solve the same logic-reuse problem as HOCs (and render props), but without adding extra components to the render tree—avoiding wrapper hell and making the code easier to read, type, and debug. See also [Do Hooks replace render props and higher-order components?](#do-hooks-replace-render-props-and-higher-order-components).
 
+**[⬆ Back to Top](#table-of-contents)**
+
+330. ### Does `React.memo` prevent Context consumers from re-rendering?
+
+     **No.** `React.memo` only performs a shallow comparison of a component's **props** — it has no visibility into context. If a component reads a value via `useContext`/`Context.Consumer`, that component re-renders whenever the **context value** changes, regardless of whether it's wrapped in `React.memo` and regardless of whether its own props changed.
+
+     ```jsx
+     const CountContext = React.createContext();
+
+     // Wrapping with React.memo does NOT help here
+     const Display = React.memo(function Display() {
+       const count = useContext(CountContext);
+       return <div>{count}</div>;
+     });
+
+     function App() {
+       const [count, setCount] = useState(0);
+       return (
+         <CountContext.Provider value={count}>
+           <button onClick={() => setCount((c) => c + 1)}>Increment</button>
+           <Display />
+         </CountContext.Provider>
+       );
+     }
+     ```
+
+     Every time `count` changes, `Display` re-renders even though it takes no props and is memoized — `React.memo` bails out based on prop equality, but context consumption bypasses that check entirely.
+
+     #### How to actually reduce these re-renders
+
+     - **Split contexts** by concern so a component only subscribes to the slice of state it actually needs (see [What's a common pitfall when using useContext with objects?](#whats-a-common-pitfall-when-using-usecontext-with-objects)).
+     - **Memoize the provider's value** with `useMemo` so the reference only changes when the underlying data changes — this reduces churn but doesn't stop consumers from re-rendering when the value itself legitimately changes.
+     - **Push `useContext` down** into a small wrapper component and pass the extracted value as a prop to a memoized child. The child (wrapped in `React.memo`) will now correctly skip re-rendering when that specific prop hasn't changed, since the memoization check happens one level below the context read.
+     - **Use a state management library or selector-based API** (Redux's `useSelector`, Zustand, Jotai) when you need fine-grained, per-field subscriptions instead of one large context object.
+
+**[⬆ Back to Top](#table-of-contents)**
+
+331. ### How would you create a reusable Context?
+
+     A **reusable Context** bundles the `createContext` call, its `Provider` (with local state/logic), and a custom hook to consume it into a single module. This hides the raw `Context` object from consumers, provides a clear API, and lets you validate that the hook is used within its provider.
+
+     ```jsx
+     // ThemeContext.js
+     import { createContext, useContext, useMemo, useState } from "react";
+
+     const ThemeContext = createContext(undefined);
+
+     export function ThemeProvider({ children }) {
+       const [theme, setTheme] = useState("light");
+
+       const toggleTheme = () =>
+         setTheme((prev) => (prev === "light" ? "dark" : "light"));
+
+       // Memoize so the value reference is stable across renders
+       const value = useMemo(() => ({ theme, toggleTheme }), [theme]);
+
+       return (
+         <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
+       );
+     }
+
+     // Custom hook consumers use instead of importing ThemeContext directly
+     export function useTheme() {
+       const context = useContext(ThemeContext);
+       if (context === undefined) {
+         throw new Error("useTheme must be used within a ThemeProvider");
+       }
+       return context;
+     }
+     ```
+
+     ```jsx
+     // App.js
+     function App() {
+       return (
+         <ThemeProvider>
+           <Toolbar />
+         </ThemeProvider>
+       );
+     }
+
+     function Toolbar() {
+       const { theme, toggleTheme } = useTheme();
+       return <button onClick={toggleTheme}>Current theme: {theme}</button>;
+     }
+     ```
+
+     #### Why wrap Context like this?
+
+     1.  **Encapsulation:** Consumers never import or touch the raw `Context` object, so its internal shape can change without breaking callers.
+     2.  **Guardrails:** The custom hook throws a clear error if used outside its provider, instead of silently returning `undefined`.
+     3.  **Colocation:** State, updater functions, and derived values live next to the provider, making the context self-contained and easy to test in isolation.
+     4.  **Composability:** Multiple reusable contexts (theme, auth, locale, etc.) can be combined by nesting providers, or composed with a helper that merges them.
+     5.  **Performance-friendly:** Memoizing the provider's value (with `useMemo`) avoids creating a new object on every render, reducing unnecessary consumer re-renders (see [Does `React.memo` prevent Context consumers from re-rendering?](#does-reactmemo-prevent-context-consumers-from-re-rendering)).
+
+**[⬆ Back to Top](#table-of-contents)**
+
 ## Old Q&A
 
 0. ### What is Concurrent Rendering? (Legacy)
@@ -10574,13 +10714,52 @@ Technically it is possible to write nested function components but it is not sug
 
 49. ### What are render props?
 
-    **Render Props** is a simple technique for sharing code between components using a prop whose value is a function. The below component uses render prop which returns a React element.
+    **Render Props** is a technique for sharing code/logic between components using a prop whose value is a function that returns a React element. Instead of duplicating stateful logic in every component that needs it, a "provider" component encapsulates the logic and delegates *what to render* to its caller via this function prop.
 
     ```jsx harmony
     <DataProvider render={(data) => <h1>{`Hello ${data.target}`}</h1>} />
     ```
 
-    Libraries such as React Router and DownShift are using this pattern.
+    #### Full example
+
+    ```jsx harmony
+    class DataProvider extends React.Component {
+      state = { target: "World" };
+
+      render() {
+        // Instead of hardcoding what to render, delegate it via the render prop
+        return this.props.render(this.state);
+      }
+    }
+
+    function App() {
+      return (
+        <DataProvider render={(data) => <h1>{`Hello ${data.target}`}</h1>} />
+      );
+    }
+    ```
+
+    Here, `DataProvider` owns the state, but has no opinion on markup — any consumer can reuse the same logic while rendering completely different UI.
+
+    #### Why use render props?
+
+    1.  **Cross-cutting logic reuse:** Encapsulates logic (data fetching, subscriptions, mouse/scroll tracking, form state, etc.) once and reuses it across many components without inheritance.
+    2.  **Explicit data flow:** Unlike HOCs, which implicitly inject props, render props make it obvious exactly what data is being passed to the render function since it's right there as an argument.
+    3.  **No naming collisions:** HOCs composed together can silently clash on injected prop names; with render props, you control the destructuring/naming at the call site.
+    4.  **Flexible children API:** The render function doesn't need to be named `render` — the `children` prop can also be used as a function (see [Must a prop be named "render" for render props?](#is-it-prop-must-be-named-as-render-for-render-props)).
+
+    #### Common use cases
+
+    - Tracking mouse position / window size and sharing it with multiple components.
+    - Toggling UI state (modals, accordions, dropdowns) — see [How do you create HOC using render props?](#how-do-you-create-hoc-using-render-props).
+    - Fetching remote data and letting the consumer decide how to render loading/success/error states.
+    - Libraries such as React Router (`<Route render={...} />`) and Downshift use this pattern.
+
+    #### Downsides
+
+    - Can lead to deeply nested JSX ("wrapper hell") when composing many render-prop components together.
+    - Defining an inline arrow function as the render prop on every render can hurt performance with `PureComponent`/`React.memo` since a new function reference is created each time (see [What are the problems with using render props with Pure Components?](#what-are-the-problems-of-using-render-props-with-pure-components)).
+    - Hooks now solve most of these use cases with less nesting and boilerplate — see [Do Hooks replace render props and higher-order components?](#do-hooks-replace-render-props-and-higher-order-components).
 
 **[⬆ Back to Top](#table-of-contents)**
 

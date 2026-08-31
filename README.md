@@ -384,6 +384,7 @@ Hide/Show table of contents
 | 326 | [What is the React Compiler (React Forget)?](#what-is-the-react-compiler-react-forget)                                                                                                                                           |
 | 327 | [What is Streaming SSR and how does React 18+ improve it?](#what-is-streaming-ssr-and-how-does-react-18-improve-it)                                                                                                              |
 | 328 | [What is `renderToPipeableStream` and how is it different from renderToString?](#what-is-rendertopipeablestream-and-how-is-it-different-from-rendertostring)                                                                     |
+| 329 | [What is the difference between HOCs and Hooks?](#what-is-the-difference-between-hocs-and-hooks)                                                                                                                                 |
 
 </details>
 
@@ -9287,6 +9288,54 @@ Technically it is possible to write nested function components but it is not sug
      ```
 
      In practice, prefer `renderToPipeableStream` for React 18+ SSR because it improves perceived performance and works naturally with Suspense-driven progressive loading.
+
+**[⬆ Back to Top](#table-of-contents)**
+
+329. ### What is the difference between HOCs and Hooks?
+
+     Both **Higher-Order Components (HOCs)** and **Hooks** let you reuse logic across components, but they solve that problem in very different ways.
+
+     | Aspect | Higher-Order Components (HOCs) | Hooks |
+     | --- | --- | --- |
+     | Pattern | A function that takes a component and returns a new, enhanced component | A function called directly inside a function component |
+     | Component tree | Adds an extra wrapper component, which can lead to "wrapper hell" with multiple HOCs | Adds no extra components to the tree |
+     | Sharing logic | Injects props/behavior into the wrapped component | Shares stateful logic directly via custom hooks (`useX`) |
+     | Prop handling | Can cause prop name collisions when composing multiple HOCs | No prop collisions since state lives inside the component itself |
+     | Debugging | Harder to trace which HOC injected which prop (often needs `displayName`) | Easier to trace; shows up as plain hook calls in React DevTools |
+     | Usage | Works with both class and function components | Can only be used in function components (or other hooks) |
+
+     #### Example: sharing "toggle" logic
+
+     **Using a HOC:**
+
+     ```jsx
+     function withToggle(WrappedComponent) {
+       return function Enhanced(props) {
+         const [on, setOn] = useState(false);
+         const toggle = () => setOn((prev) => !prev);
+         return <WrappedComponent {...props} on={on} toggle={toggle} />;
+       };
+     }
+
+     const Modal = withToggle(BaseModal);
+     ```
+
+     **Using a custom Hook:**
+
+     ```jsx
+     function useToggle(initial = false) {
+       const [on, setOn] = useState(initial);
+       const toggle = () => setOn((prev) => !prev);
+       return [on, toggle];
+     }
+
+     function Modal() {
+       const [on, toggle] = useToggle();
+       // ...
+     }
+     ```
+
+     In short, Hooks were introduced to solve the same logic-reuse problem as HOCs (and render props), but without adding extra components to the render tree—avoiding wrapper hell and making the code easier to read, type, and debug. See also [Do Hooks replace render props and higher-order components?](#do-hooks-replace-render-props-and-higher-order-components).
 
 ## Old Q&A
 
